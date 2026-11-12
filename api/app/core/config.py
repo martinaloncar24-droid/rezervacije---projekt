@@ -7,7 +7,7 @@ ENV_FILE = Path(__file__).resolve().parents[3] / ".env"
 
 
 class Settings(BaseSettings):
-    APP_NAME: str = "Rezervacije stolova API"
+    APP_NAME: str = "Restaurant Tinel - rezervacije API"
     ENV: str = "dev"
     DATABASE_URL: str
     JWT_SECRET: str = "change-me"

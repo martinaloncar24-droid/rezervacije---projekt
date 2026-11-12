@@ -1,9 +1,37 @@
-# Rezervacije stolova u restoranu
+# Restaurant Tinel: rezervacije stolova
 
 Projekt iz kolegija **Programiranje za web** na SIT UNIZD.
 
-Gosti rezerviraju stolove u restoranu, a restoran (admin) upravlja stolovima i
-vidi sve rezervacije.
+Gosti rezerviraju stolove u restoranu Tinel, a restoran (admin) upravlja
+stolovima i vidi sve rezervacije.
+
+## Domena
+
+**Uloge**
+
+- `admin`: restoran; upravlja stolovima, vidi sve rezervacije, označava
+  goste koji nisu došli
+- `guest`: gost; vidi, stvara i otkazuje samo svoje rezervacije
+
+**Tablice**
+
+- `users`: korisnički računi (korisničko ime, hash lozinke, uloga)
+- `dining_tables`: stolovi (broj stola, kapacitet, lokacija `terasa` ili `ulica`)
+- `reservations`: rezervacije (gost, stol, vrijeme dolaska, broj osoba, status)
+
+Jedan gost ima više rezervacija, jedan stol ima više rezervacija (veze 1:N).
+
+**Poslovna pravila**
+
+1. Broj osoba ne smije premašiti kapacitet stola.
+2. Rezervacija traje 2 sata; isti stol ne smije imati dvije aktivne
+   rezervacije koje se preklapaju.
+3. Rezervacija mora biti u budućnosti.
+4. Gost smije otkazati rezervaciju najkasnije 2 sata prije dolaska.
+5. Restoran drži stol 30 minuta nakon dogovorenog vremena; tek tada admin
+   smije označiti da gost nije došao (`no_show`).
+
+Statusi rezervacije: `active`, `cancelled`, `no_show`.
 
 ## Struktura
 
