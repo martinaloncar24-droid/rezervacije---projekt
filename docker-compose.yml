@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: rezervacije
+      POSTGRES_USER: rez_user
+      POSTGRES_PASSWORD: rez_pass
+    ports:
+      # računalo:kontejner — izvana 5433, unutar kontejnera Postgres sluša na 5432
+      - "5433:5432"
+    volumes:
+      # podatci ostaju sačuvani i kad se kontejner ugasi
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

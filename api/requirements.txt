@@ -1,0 +1,23 @@
+# Web framework i poslužitelj
+fastapi>=0.115
+uvicorn[standard]>=0.34
+
+# Konfiguracija iz varijabli okoline
+pydantic-settings>=2.7
+
+# Baza: ORM, asinkroni upravljački program za PostgreSQL i migracije
+sqlalchemy[asyncio]>=2.0
+asyncpg>=0.30
+alembic>=1.14
+
+# Hashiranje lozinki i JWT tokeni
+bcrypt>=4.2
+pyjwt>=2.10
+
+# Statička analiza i formatiranje
+ruff>=0.9
+
+# Testovi: pytest, async testovi, HTTP klijent nad aplikacijom bez poslužitelja
+pytest>=8.3
+pytest-asyncio>=0.25
+httpx>=0.28
