@@ -39,8 +39,11 @@ Statusi rezervacije: `active`, `cancelled`, `no_show`.
 api/                 # backend: FastAPI
   app/
     main.py          # sastavljanje aplikacije
-    core/            # konfiguracija, zapisnik
+    seed.py          # početni podatci
+    core/            # konfiguracija, baza, lozinke, zapisnik
     routers/         # rute: primaju zahtjev, vraćaju odgovor
+    models/          # SQLAlchemy modeli (tablice)
+  alembic/           # migracije
 docker-compose.yml   # baza podataka
 .env.example         # predložak konfiguracije
 ```
@@ -59,8 +62,33 @@ cd api
 uv venv
 .venv\Scripts\Activate.ps1
 uv pip install -r requirements.txt
+alembic upgrade head          # stvara tablice
+python -m app.seed            # početni podatci
 uvicorn app.main:app --reload
 ```
+
+### Početni podatci
+
+`python -m app.seed` stvara admina, dva gosta, pet stolova i jednu primjer
+rezervaciju. Smije se pokrenuti više puta; što već postoji, ne stvara se ponovno.
+
+| Uloga | Prijava | Lozinka |
+|-------|---------|---------|
+| admin | `admin@tinel.hr` | `admin123` |
+| guest | `ana@tinel.hr` | `ana12345` |
+| guest | `marko@tinel.hr` | `marko123` |
+
+### Migracije
+
+```powershell
+cd api
+alembic revision --autogenerate --rev-id 002 -m "opis promjene"
+alembic upgrade head      # primijeni sve što još nije primijenjeno
+alembic downgrade -1      # poništi zadnju migraciju
+alembic current           # na kojoj je migraciji baza
+```
+
+Svaka nastala migracija čita se prije pokretanja.
 
 Provjera: http://127.0.0.1:8000/health vraća `{"status": "ok"}`, a
 http://127.0.0.1:8000/docs prikazuje Swagger UI.
