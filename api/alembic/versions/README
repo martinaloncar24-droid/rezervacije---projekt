@@ -1,0 +1,1 @@
+# Migracije: alembic revision --autogenerate --rev-id 00X -m "opis"
