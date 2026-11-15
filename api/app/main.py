@@ -12,10 +12,13 @@ from app.core.errors import (
 from app.core.logging import setup_logging
 from app.routers.auth import router as auth_router
 from app.routers.health import router as health_router
+from app.routers.reservations import router as reservations_router
+from app.routers.tables import router as tables_router
 
 
 def create_app(config: Settings = settings) -> FastAPI:
-    # Aplikacija se sastavlja u funkciji, pa testovi mogu stvoriti svoju s drugom konfiguracijom
+    # Aplikacija se sastavlja u funkciji, pa testovi mogu stvoriti svoju
+    # s drugom konfiguracijom
     setup_logging(debug=config.ENV == "dev")
     app = FastAPI(title=config.APP_NAME, debug=config.ENV == "dev")
 
@@ -26,6 +29,10 @@ def create_app(config: Settings = settings) -> FastAPI:
 
     app.include_router(health_router, prefix="/health", tags=["health"])
     app.include_router(auth_router, prefix="/auth", tags=["auth"])
+    app.include_router(tables_router, prefix="/tables", tags=["tables"])
+    app.include_router(
+        reservations_router, prefix="/reservations", tags=["reservations"]
+    )
     return app
 
 

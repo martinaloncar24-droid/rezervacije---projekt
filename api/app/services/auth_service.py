@@ -53,6 +53,6 @@ async def refresh_tokens(db: AsyncSession, refresh_token: str) -> tuple[str, str
 async def register_guest(db: AsyncSession, username: str, password: str) -> User:
     if await user_repo.get_by_username(db, username):
         # 409: zahtjev je ispravan, ali se sukobljava s postojećim stanjem
-        raise AppError("username_taken", "Korisničko ime je zauzeto", 409)
+        raise AppError("duplicate", "Korisničko ime je zauzeto", 409)
     user = User(username=username, password_hash=hash_password(password), role="guest")
     return await user_repo.create(db, user)
