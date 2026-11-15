@@ -20,4 +20,5 @@ ruff>=0.9
 # Testovi: pytest, async testovi, HTTP klijent nad aplikacijom bez poslužitelja
 pytest>=8.3
 pytest-asyncio>=0.25
+freezegun>=1.5
 httpx>=0.28
